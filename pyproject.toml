@@ -1,0 +1,12 @@
+[project]
+name = "barcode-generator"
+version = "0.1.0"
+description = "Generate a number of unique DNA barcodes"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.3.0",
+    "numpy>=2.3.4",
+]
+[project.scripts]
+barcode-generator = "barcode_generator:main"
