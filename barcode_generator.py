@@ -65,9 +65,9 @@ def write_barcodes_as_fasta(barcodes: list, outfile: str, prefix="") -> str:
 
 def generate_barcodes(number,
                       length,
-                      min_gc=40,
-                      max_gc=60,
-                      min_hamming=6):
+                      hamming,
+                      min_gc,
+                      max_gc):
     barcodes = []
     gc = random.randint(min_gc,max_gc)
     while len(barcodes) < number:
@@ -84,19 +84,22 @@ def generate_barcodes(number,
         random.shuffle(barcode)
         barcode = "".join(barcode)
         if reverse_complement(barcode) != barcode:
-            if all([hamming_distance(barcode, b) >= min_hamming for b in barcodes]):
+            if all([hamming_distance(barcode, b) >= hamming for b in barcodes]):
                 rev_comp_barcodes = list([reverse_complement(b) for b in barcodes])
-                if all([hamming_distance(barcode, b) >= min_hamming for b in rev_comp_barcodes]):
+                if all([hamming_distance(barcode, b) >= hamming for b in rev_comp_barcodes]):
                     if check_uniqueness(barcode, sequences_to_avoid):
                         barcodes.append(barcode)
     return barcodes
 
 @click.command()
 @click.option("-n", "--number", type=click.INT, default=100)
-@click.option("-l", "--length", type=click.INT, default=17)
+@click.option("-l", "--length", type=click.INT, default=16)
+@click.option("-h", "--hamming", type=click.INT, default=6)
+@click.option("-m", "--min_gc", type=click.INT, default=40)
+@click.option("-a", "--max_gc", type=click.INT, default=60)
 @click.option("-o", "--outfile", type=click.STRING, default="barcodes.fasta")
-def cli(number, length, outfile):
-    barcodes = generate_barcodes(number, length)
+def cli(number, length, hamming, min_gc, max_gc, outfile):
+    barcodes = generate_barcodes(number, length, hamming, min_gc, max_gc)
     filename = write_barcodes_as_fasta(barcodes, outfile)
     print(f"{len(barcodes)} barcodes written to {filename}")
 
