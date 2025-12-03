@@ -16,6 +16,10 @@ np.random.seed(seed)
 
 sequences_to_avoid = ["gtgtatcggatgtcagttgc",
                       "gtataatgcagacctgctgcCGGATGAAAACGAGA",
+                      "AATGATACGGCGACCACCGAGATCTACAC",
+                      "ACACTCTTTCCCTACACGACGCTCTTCCGATCTGTGTATCGGATGTCAGTTGC",
+                      "CAAGCAGAAGACGGCATACGAGAT",
+                      "GTGACTGGAGTTCCTTGGCACCCGAGAATTCCATCTCGTTTTCATCCGGCAGC",
                       "TCGTCGGCAGCGTCAGATGTGTATAAGAGACAGAgatgatgattacTAATACGACTCACTATAACTGGAAG",
                       "GTCTCGTGGGCTCGGAGATGTGTATAAGAGACActcgttttcatccggcag"]
 
